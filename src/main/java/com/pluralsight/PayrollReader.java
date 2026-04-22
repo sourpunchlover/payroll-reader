@@ -20,7 +20,10 @@ public class PayrollReader {
             String line;
 
             while ((line = buffreader.readLine()) != null) {
-                System.out.println(line);
+                // Split the lines here using |
+                String[] tokens = line.split("\\|");
+
+                //
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
