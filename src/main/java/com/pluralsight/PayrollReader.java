@@ -1,19 +1,31 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class PayrollReader {
     public static void main(String[] args) {
-        try {
+        //Asking for user input
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.print("Enter name of the employee file to process: ");
+        String fileInput = scanner.nextLine();
+
+        System.out.print("Enter name of payroll file to create: ");
+        String fileOutput = scanner.nextLine();
+
+
+        try {
 
             //reading file
             FileReader fileReader = new FileReader("src/main/resources/employees.csv");
             BufferedReader buffreader = new BufferedReader(fileReader);
+
+            //This creates the file writer
+            FileWriter fileWriter = new FileWriter("src/main/resources" + "/" + fileOutput + ".csv" );
+            //This creates the buffered writer
+            BufferedWriter buffwriter = new BufferedWriter(fileWriter);
 
             String line;
             buffreader.readLine();
@@ -32,21 +44,23 @@ public class PayrollReader {
 
                 //printing employee
                 System.out.printf("Id: %d | Name: %s | Gross Pay: $%.2f%n", employee.getEmployeeID() , employee.getName() , employee.getGrossPay());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    System.out.println("Problem with IO");
 
-                }
+                //Write file output
+                buffwriter.write(employee.getEmployeeID() + "|" + employee.getName() + "|" + employee.getGrossPay());
+                buffwriter.newLine();
+
             }
 
             buffreader.close();
+            buffwriter.close();
+
         } catch(IOException e) {
             e.printStackTrace();
             System.out.println("Problem with IO");
 
         }// close curly for initial try
+
+
     }
     }
 
