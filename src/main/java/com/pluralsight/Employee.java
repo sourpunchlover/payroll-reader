@@ -42,6 +42,7 @@ public class Employee {
 
     public double getPayRate() {
         return payRate;
+
     }
 
     public void setPayRate(double payRate) {
